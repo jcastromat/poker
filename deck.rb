@@ -7,6 +7,7 @@ class Deck
   def initialize
     @cards = []
     populate_deck
+    @cards.shuffle!
   end
 
   def populate_deck
@@ -15,6 +16,22 @@ class Deck
         @cards << Card.new(suit, value)
       end
     end
+  end
+
+  def take_card
+    @cards.shift
+  end
+
+  def return_card(card)
+    @cards << card
+  end
+
+  def take_hand
+    @cards.shift(5)
+  end
+
+  def return_hand(hand)
+    @cards += hand
   end
 
 end
