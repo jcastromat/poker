@@ -1,4 +1,4 @@
-require './card'
+require 'card.rb'
 
 class Hand
 
@@ -18,12 +18,25 @@ class Hand
     :ace   => 14
   }
 
+  RANKS = {
+    9 => "Royal flush",
+    8 => "Straight flush",
+    7 => "Four of a kind",
+    6 => "Full house",
+    5 => "Flush",
+    4 => "Straight",
+    3 => "Three of a kind",
+    2 => "Two pairs",
+    1 => "One pair",
+    0 => "Highest card"
+  }
+
   def initialize(cards)
     @cards = cards
   end
 
   def royal_flush?
-    straight? && flush? && values.sort.first == :ten
+    straight? && flush? && values.map{|val| NUMBER_VALUES[val]}.sort.first == 10
   end
 
   def straight_flush?
@@ -52,6 +65,8 @@ class Hand
 
   def straight?
     num_values = values.map {|value| NUMBER_VALUES[value]}
+
+    return false if num_values.uniq.length != 5
 
     if num_values.include?(14)
       num_values.sort.first == 10 || num_values.sort[-2] == 5
@@ -128,6 +143,12 @@ class Hand
     else
       0
     end
+  end
+
+  def to_s
+    s_cards = ""
+    @cards.each { |card| s_cards += (card.to_s + " ") }
+    s_cards
   end
 
 

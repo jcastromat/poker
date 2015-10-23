@@ -30,4 +30,8 @@ class Card
     @value = value
   end
 
+  def to_s
+    "#{VALUE_STRINGS[value]}#{SUIT_STRINGS[suit]}"
+  end
+
 end
